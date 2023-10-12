@@ -1,5 +1,5 @@
 # California Wildfire Prediction
-
+![Alt text](CSUN-senior-design-project.png)
 
 > A machine learning project for predicting wildfires in California using data-driven approaches.
 
