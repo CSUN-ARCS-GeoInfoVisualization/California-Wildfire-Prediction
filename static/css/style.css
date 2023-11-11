@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  nav {
+    background-color: #ef5959;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+  }
+  
+  .logo img {
+    height: 80px;
+    margin-left: 30px;
+    margin-right: 0px;
+    width: 300px;
+  }
+  .logo-mobile img {
+    display: none;
+  }
+  .nav-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+  }
+  
+  .nav-links li {
+    margin-right: 20px;
+  }
+  
+  .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .hamburger-menu {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+  
+    .hamburger-menu {
+      display: flex;
+      align-items: flex-end;
+      position: absolute;
+      right: 0;
+    }
+  
+    .nav-active {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      position: absolute;
+      top: 80px;
+      right: 0;
+      background-color: #ef5959;
+  
+      padding-top: 20px;
+      padding-bottom: 60px;
+      padding-right: 40px;
+      padding-left: 40px;
+    }
+  
+    .nav-active li {
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+  
+    .nav-active li a {
+      color: #fff;
+    }
+    .logo {
+      display: none;
+    }
+  
+    .logo-mobile img {
+      display: block;
+      height: 80px;
+      margin-left: 20px;
+    }
+  }
+  main {
+    flex-grow: 1;
+  }
+  footer {
+    background-color: #ef5959;
+    height: 100px;
+    width: 100%;
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: flex-end;
+    color: white;
+  }
+  .footer-content {
+    font-style: italic;
+    margin-bottom: 10px;
+  }

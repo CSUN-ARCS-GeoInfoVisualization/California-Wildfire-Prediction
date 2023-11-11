@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" />
+    <script src="{{url_for('static', filename='script.js')}}" defer></script>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <a href="{{url_for('home')}}" class="logo-img-link">
+          <img src="{{url_for('static', filename='CSUN-senior-design-project 1.png')}}" alt="Logo" />
+        </a>
+      </div>
+      <div class="logo-mobile">
+        <a href="{{url_for('home')}}" class="logo-img-mlink">
+          <img src="{{url_for('static', filename='logo 1.png')}}" alt="Logo" />
+        </a>
+      </div>
+      <button class="hamburger-menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        <li><a href="#">Data Sources</a></li>
+        <li><a href="#">Prediction Models</a></li>
+        <li><a href="#">About Us</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Body content -->
+    </main>
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-content">© 2023 Wildfire Prediction</div>
+        
+      </div>
+
+
+      
+    </footer>
+  </body>
+</html>
