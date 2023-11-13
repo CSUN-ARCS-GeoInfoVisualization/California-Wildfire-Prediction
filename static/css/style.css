@@ -9,6 +9,8 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    
+    
   }
   
   nav {
@@ -102,6 +104,55 @@
   }
   main {
     flex-grow: 1;
+    width:50%;
+    text-align: center;
+    margin:auto;
+    
+  }
+
+  h1{
+    text-align:center;
+    border-style:dotted;
+    border-color:#ef5959;
+    border-radius:50%;
+    padding: 25px;
+    justify-content: center;
+    color:#ef5959;
+    background-color:rgba(241,117,117,.30);
+    width:30%;
+    margin:auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+  #intro{
+    text-align: center;
+    padding:30px;
+    background-color:rgba(239, 89, 89, .30);
+    font-size: 25px;
+    color:#ef5959;
+
+  }
+  #objective{
+    text-align: center;
+    padding:30px;
+    background-color:rgba(239, 89, 89, .30);
+    font-size: 25px;
+    color: #ef5959;
+  }
+
+  #data{
+    text-align: center;
+    padding:30px;
+    background-color:rgba(239, 89, 89, .30);
+    font-size: 25px;
+    color:#ef5959;
+  }
+  #models{
+    text-align: center;
+    padding:30px;
+    background-color:rgba(239, 89, 89, .30);
+    font-size: 25px;
+    color:#ef5959;
   }
   footer {
     background-color: #ef5959;
