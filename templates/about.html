@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" />
+    <script src="{{url_for('static', filename='script.js')}}" defer></script>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <a href="{{url_for('home')}}" class="logo-img-link">
+          <img src="{{url_for('static', filename='CSUN-senior-design-project 1.png')}}" alt="Logo" />
+        </a>
+      </div>
+      <div class="logo-mobile">
+        <a href="{{url_for('home')}}" class="logo-img-mlink">
+          <img src="{{url_for('static', filename='logo 1.png')}}" alt="Logo" />
+        </a>
+      </div>
+      <button class="hamburger-menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        <li><a href="#">Data Sources</a></li>
+        <li><a href="#">Prediction Models</a></li>
+        <li><a href="{{url_for('about')}}">About Us</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <div style="color: black; font-size: 32px; font-family: sans-serif; word-wrap: break-word; text-align: center">
+        About us
+      </div>
+      <div style="margin-left:40px">
+        <img src="{{url_for('static', filename='Profile Picture 1.png')}}" alt="Picture of Fraid" width="250" height="250"/>
+        <div style="font-size: 16px; font-family: sans-serif; color: black; word-wrap: break-word; padding-bottom: 30px">
+          Farid: Machine Learning Engineer
+        </div>
+        <img src="{{url_for('static', filename='Profile Picture 2.png')}}" alt="Picture of Edwin" width="250" height="250"/>
+        <div style="font-size: 16px; font-family: sans-serif; color: black; word-wrap: break-word; padding-bottom: 30px">
+          Edwin: Machine Learning Engineer
+        </div>
+        <img src="{{url_for('static', filename='Profile Picture 3.png')}}" alt="Picture of Luis" width="250" height="250"/>
+        <div style="font-size: 16px; font-family: sans-serif; color: black; word-wrap: break-word; padding-bottom: 30px">
+          Luis: Web Developer
+        </div>
+        <img src="{{url_for('static', filename='Profile Picture 4.png')}}" alt="Picture of Matthew" width="250" height="250"/>
+        <div style="font-size: 16px; font-family: sans-serif; color: black; word-wrap: break-word; padding-bottom: 30px">
+          Matthew: Web Developer
+        </div>
+        <img src="{{url_for('static', filename='Profile Picture 5.png')}}" alt="Picture of Alondra" width="250" height="250"/>
+        <div style="font-size: 16px; font-family: sans-serif; color: black; word-wrap: break-word; padding-bottom: 30px">
+          Alondra: Web Developer
+        </div>
+        <div style="font-size: 16px; font-family: sans-serif; color: black; word-wrap: break-word; padding-bottom: 60px"> 
+          CSUN California Wildfire Contact Info: {Contact Info Here}
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-content">© 2023 Wildfire Prediction</div>
+        
+      </div>
+
+
+      
+    </footer>
+  </body>
+</html>
