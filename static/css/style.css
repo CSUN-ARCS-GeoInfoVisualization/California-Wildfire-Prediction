@@ -26,9 +26,11 @@
     margin-right: 0px;
     width: 300px;
   }
+
   .logo-mobile img {
     display: none;
   }
+
   .nav-links {
     display: flex;
     justify-content: space-between;
@@ -90,6 +92,7 @@
     .nav-active li a {
       color: #fff;
     }
+
     .logo {
       display: none;
     }
@@ -100,9 +103,11 @@
       margin-left: 20px;
     }
   }
+
   main {
     flex-grow: 1;
   }
+
   footer {
     background-color: #ef5959;
     height: 100px;
@@ -116,6 +121,7 @@
     align-items: flex-end;
     color: white;
   }
+
   .footer-content {
     font-style: italic;
     margin-bottom: 10px;
