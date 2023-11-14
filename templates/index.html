@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" />
+    <script src="{{url_for('static', filename='script.js')}}" defer></script>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <a href="{{url_for('home')}}" class="logo-img-link">
+          <img src="{{url_for('static', filename='CSUN-senior-design-project 1.png')}}" alt="Logo" />
+        </a>
+      </div>
+      <div class="logo-mobile">
+        <a href="{{url_for('home')}}" class="logo-img-mlink">
+          <img src="{{url_for('static', filename='logo 1.png')}}" alt="Logo" />
+        </a>
+      </div>
+      <button class="hamburger-menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        <li><a href="#">Data Sources</a></li>
+        <li><a href="#">Prediction Models</a></li>
+        <li><a href="{{url_for('about')}}">About Us</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <!-- Body content -->
+      <h1 >Introduction</h1>
+      <div id="intro">
+        <p> In the face of escalating challenges posed by the increasing frequency and severity of wildfires in California, there is an urgent need for innovative 
+          approaches to prediction and mitigation. California has witnessed devastating wildfire seasons, environmental concerns, threatening lives, 
+          and causing extensive property damage.A main issue with predictions that people have worked on is the monitoring of said wildfires. 
+           
+        </p>
+      </div>
+      <h1>Objective</h1>
+      <div id="objective">
+        <p>
+          This project seeks to address these issues by using machine learning mechanisms. We will be using sattelite data that will predict
+          if a wildfire is likely to occur based on certain conditions. The type of conditions that will be monitored with our data will be plant health, temperature of the surface of the earth, and 
+          thermal anomalies. By using these methods, we aim to enhance the accuracy and timeliness of wildfire predictions, ultimately contributing to more effective preparedness,response strategies and asolution to safeguard California's communities and ecosystems. 
+        </p>
+      </div>
+      <h1>Data Collection</h1>
+      <div id="data">
+        <p>
+          For our project, we obtained a diverse array of data obtained from reputable sources, including the Application for Extracting and Exploring Analysis Ready Samples (AppEEARS) provided by NASA LP DAAC. This platform offered datasets for Bands 1 and 4 (BA), Elevation, Land Surface Temperature (LST), Normalized Difference Vegetation Index (NDVI), 
+          and Temperature (TA) derived from MODIS and WELD products. We also incorporated California County Boundaries data from the California State Geoportal. Lastly, we also incorporated data from 
+          wildfire incident reports from the California Department of Forestry and Fire Protection (CAL FIRE).
+        </p>
+      </div>
+      <h1>Prediction Models</h1>
+      <div id="models">
+        <p>
+          The main feature of our wildfire prediction project handles the utilization of datasets to construct a comprehensive and reliable prediction model. By analyzing diverse sources of information, including plant health, temperature
+          of earths surface, and thermal anomalies, we aim to be able to create a prediction model. Our model will be able to select a specific area in California and give a prediction of wildfire based on historical data. This model will be a map visualization of California that will be easily digestable for any user.
+          This approach enables us to understand the historical context of wildfires but also to create a model with accuracy and timliness. 
+        </p>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-content">© 2023 Wildfire Prediction</div>
+        
+      </div>
+
+
+      
+    </footer>
+  </body>
+</html>
