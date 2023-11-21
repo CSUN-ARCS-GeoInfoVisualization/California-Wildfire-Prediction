@@ -8,13 +8,13 @@ from shapely.geometry import mapping
 class BAPreprocessingFunctions:
     def __init__(self):
         # Set the output directory
-        self.out_dir = "/Users/wynshiesty/Desktop/Wildfire Machine Learning/California-Wildfire-Prediction/Data Processing/output"
+        self.out_dir = "/Uses/wynshiesty/Desktop/Wildfire Machine Learning/California-Wildfire-Prediction/Data Processing/output"
 
         # Set the BA data directory
-        self.BA_inDir = "/Users/wynshiesty/Desktop/Wildfire Machine Learning/California-Wildfire-Prediction/Data Processing/raw_data/BA"
+        self.BA_inDir = "/Usrs/wynshiesty/Desktop/Wildfire Machine Learning/California-Wildfire-Prediction/Data Processing/raw_data/BA"
 
         # Set the path for the shapefile
-        self.shapefile_path = "/Users/wynshiesty/Desktop/Wildfire Machine Learning/California-Wildfire-Prediction/Data Processing/raw_data/BA/California_County_Boundaries.geojson"
+        self.shapefile_path = "/Usrs/wynshiesty/Desktop/Wildfire Machine Learning/California-Wildfire-Prediction/Data Processing/raw_data/BA/California_County_Boundaries.geojson"
 
         # Temporary file names for processing
         self.BA_temp = "BA_temp.tif"
