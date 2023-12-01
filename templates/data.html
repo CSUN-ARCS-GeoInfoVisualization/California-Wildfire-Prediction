@@ -38,16 +38,18 @@
 <!-- TODO: Customize the design of the elements to make it fit in better -->
 
       <form>
-        <label for="date">Date:</label>
-        <input type="date", id="date", name="date"><br />
+        <label for="start_date">Start Date:</label>
+        <input type="date", id="start_date", name="start_date">
+        <label for="end_date">End Date (Optional):</label>
+        <input type="date", id="end_date", name="end_date"><br /><br />
 	<label for="county">County:</label>
-	<select id="county" name="county">
+	<select id="county" name="county" multiple>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
-        </select><br />
-        <input type="submit">
+        </select><br /><br />
+        <input type="submit" value="Download Dataset">
       </form><br /><br />
 
       <h1>Satellite Data</h1>

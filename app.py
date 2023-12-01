@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, request
+from datetime import date
 
 # LIST OF STRINGS FILLED WITH CALIFORNA COUNTY NAMES
 # Format: <BLANK>,<COUNTY NAME>,...
@@ -9,59 +10,45 @@ CountyList = ["","Alameda",
 
 ## Finds and returns a value from file 'filePath' from day 'date' and county 'county' ##
 ## Returns the string "No Value" if it can't find a value ##
-def findValue(date, county, filePath):
+def findValue(start_date, end_date, county, filePath):
     file = open(filePath, 'r')
     line = file.readline()
+    line = file.readline() # Skip Header
+    matches = []
 
     while (line != ''):
-        if (date in line) and (county in line):
-            break
+        line_check = [str(x) for x in line.split(",")]
+        if ((start_date <= date.fromisoformat(toISO(line_check[0])) <= end_date)
+        and (county in line)):
+            matches.append(line_check)
         line = file.readline()
 
     file.close()
 
-    if line == '':
+    if matches == []:
         return "No Value"
 
-    # Converts 'line' into an array with each element seperated by ',' and returns the second item in it
-    return [str(x) for x in line.split(",")][1]
+    for i in matches:
+        i[0] = date.fromisoformat(toISO(i[0]))
+        
+    ret_list = []
+    for i in matches:
+        # <County>  |  <Date>  |  <Value>
+        ap_str = i[3][:-1] + "  |  " + str(i[0]) + "  |  " + i[1]
+        ret_list.append(ap_str)
+
+    ret_list.sort()
+    
+    return ret_list
 
 ## Converts the county id into a string ##
 def formatCounty(county):
     return "," + f"{county:03d}"+ "," + CountyList[county] + "\n"
 
-## Converts the date from yyyy-mm-dd to mm/dd/yyyy ##
-def formatDate(date):
-    y, m, d = [str(x) for x in date.split('-')]
-    return m + "/" + d + "/" + y + ","
-
-## Checks to see if a date entered is a valid date ##
-def validDate(date):
-
-    # Type Check
-    try:
-        y, m, d = [int(x) for x in date.split('-')]
-    except:
-        return False
-
-    # Date Validation
-    if (y < 0):
-        return False
-    if (m < 1 or m > 12):
-        return False
-
-    if (m == 2):                            # february
-        if (y % 400 == 0):                      #LEAP
-            return (d > 0 and d < 30)
-        elif (y % 100 == 0 and y % 400 != 0):   #NO LEAP
-            return (d > 0 and d < 29)           
-        elif (y % 4 == 0 and y % 100 != 0):     #LEAP
-            return (d > 0 and d < 30)
-        return (d > 0 and d < 29)               #NO LEAP
-    elif (m <= 7 and m != 2):
-        return (d > 0 and d < 31 + (m % 2))
-    else:
-        return (d > 0 and d < 31 + ((m + 1) % 2))
+## Converts the date from mm/dd/yyyy to yyyy-mm-dd##
+def toISO(date):
+    m, d, y = [str(x) for x in date.split('/')]
+    return y + "-" + m + "-" + d
 
 app = Flask(__name__)
 
@@ -79,32 +66,46 @@ def about():
 
 @app.route('/data')
 def data():
-    date = request.args.get('date', default = "", type = str)
+    sd = request.args.get('start_date', default = "", type = str)
+    ed = request.args.get('end_date', default = "", type = str)
     county = request.args.get('county', default = 0, type = int)
-    print(date)     # DEBUG date : <year>-<month>-<day>
+    print(sd)       # DEBUG
+    print(ed)       # DEBUG
     print(county)   # DEBUG
 
-    if (county < 1): # NO DATA ENTERED
+    # REFACTOR 'county' to allow multiple inputs
+    if (county < 1 or sd == ""): # NO DATA ENTERED
+        print("No Data Entered")
+        return render_template('data.html')
+    
+    try:
+        start_date = date.fromisoformat(sd)
+        end_date = date.fromisoformat(ed) if (not ed == "") else ""
+    except: ## INVALID DATE ENTRY
+        print("Invalid date entry!")
+        return render_template('data.html')    
+
+    print(start_date)     # DEBUG date : <year>-<month>-<day>
+    print(end_date)
+    
+    if (start_date == ""): ## ERROR - NO START DATE SELECTED
+        print("ENTER START DATE!")
         return render_template('data.html')
 
-    if (date == ""): ## ERROR - NO DATE SELECTED
-        return render_template('data.html')
-
-    print(validDate(date)) # DEBUG - Valid Date
-    if (not validDate(date)): ## ERROR - INVALID DATE
+    if (end_date != "" and start_date > end_date): ## ERROR - INVALID END DATE
+        print("END DATE IS LARGER THAN START DATE")
         return render_template('data.html')
 
     if (county > 115 or county % 2 == 0): #ERROR - INVALID COUNTY
         return render_template('data.html')
     
     # TODO: Find info in file(s)
-    find_date = formatDate(date)
-    print(find_date)                    # DEBUG
     find_county = formatCounty(county)
     print(find_county)                  # DEBUG
 
-    value_NDVI = findValue(find_date, find_county, "Data Processing/output/NDVI_result.csv")
-    print(value_NDVI)
+    value_NDVI = findValue(start_date, end_date, find_county, "Data Processing/output/NDVI_result.csv")
+    for i in value_NDVI:
+        print(i)
     
     return render_template('data.html')
 
