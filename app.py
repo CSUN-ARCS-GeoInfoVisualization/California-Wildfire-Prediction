@@ -26,7 +26,7 @@ def findValue(start_date, end_date, county, filePath):
     file.close()
 
     if matches == []:
-        return "No Value"
+        return []
 
     for i in matches:
         i[0] = date.fromisoformat(toISO(i[0]))
@@ -43,8 +43,11 @@ def findValue(start_date, end_date, county, filePath):
 
 ## Converts the county id into a string ##
 def formatCounty(county):
-    return "," + f"{county:03d}"+ "," + CountyList[county] + "\n"
-
+    try:
+        return "," + f"{county:03d}"+ "," + CountyList[county] + "\n"
+    except:         # Out of range index
+        return ""
+        
 ## Converts the date from mm/dd/yyyy to yyyy-mm-dd##
 def toISO(date):
     m, d, y = [str(x) for x in date.split('/')]
@@ -68,13 +71,13 @@ def about():
 def data():
     sd = request.args.get('start_date', default = "", type = str)
     ed = request.args.get('end_date', default = "", type = str)
-    county = request.args.get('county', default = 0, type = int)
+    county = request.args.getlist('county', type = int)
     print(sd)       # DEBUG
     print(ed)       # DEBUG
     print(county)   # DEBUG
 
     # REFACTOR 'county' to allow multiple inputs
-    if (county < 1 or sd == ""): # NO DATA ENTERED
+    if (len(county) == 0 or sd == ""): # NO DATA ENTERED
         print("No Data Entered")
         return render_template('data.html')
     
@@ -95,17 +98,24 @@ def data():
     if (end_date != "" and start_date > end_date): ## ERROR - INVALID END DATE
         print("END DATE IS LARGER THAN START DATE")
         return render_template('data.html')
-
-    if (county > 115 or county % 2 == 0): #ERROR - INVALID COUNTY
-        return render_template('data.html')
     
-    # TODO: Find info in file(s)
-    find_county = formatCounty(county)
-    print(find_county)                  # DEBUG
+    value_NDVI = []
+    
+    for i in county:
 
-    value_NDVI = findValue(start_date, end_date, find_county, "Data Processing/output/NDVI_result.csv")
-    for i in value_NDVI:
-        print(i)
+        find_county = formatCounty(i)
+        print(find_county)                  # DEBUG
+
+        value_NDVI.append(
+            findValue(start_date, end_date, find_county, "Data Processing/output/NDVI_result.csv")
+        )
+
+    for i in value_NDVI: # DEBUG, OUTPUT
+        if i == []:
+            continue
+        for j in i:
+            print(j)
+        print()
     
     return render_template('data.html')
 
