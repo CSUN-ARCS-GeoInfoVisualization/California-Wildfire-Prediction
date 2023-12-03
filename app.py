@@ -1,4 +1,5 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, send_file, flash
+from io import BytesIO
 from datetime import date
 
 # LIST OF STRINGS FILLED WITH CALIFORNA COUNTY NAMES
@@ -8,8 +9,13 @@ CountyList = ["","Alameda",
               "","Alpine"
               ]
 
+## Generates the file to download ##
+def createFile(data):
+    file_data = bytearray('\n'.join(data) , "utf-8")
+    return send_file(BytesIO(file_data), download_name = "dataset.txt", as_attachment = True)
+
 ## Finds and returns a value from file 'filePath' from day 'date' and county 'county' ##
-## Returns the string "No Value" if it can't find a value ##
+## Returns an empty array if it can't find a value ##
 def findValue(start_date, end_date, county, filePath):
     file = open(filePath, 'r')
     line = file.readline()
@@ -38,6 +44,7 @@ def findValue(start_date, end_date, county, filePath):
         ret_list.append(ap_str)
 
     ret_list.sort()
+    ret_list.append("")
     
     return ret_list
 
@@ -100,6 +107,7 @@ def data():
         return render_template('data.html')
     
     value_NDVI = []
+    value_NDVI.append(["<County>  |  <Date>  |  <NDVI>", ""])
     
     for i in county:
 
@@ -110,14 +118,12 @@ def data():
             findValue(start_date, end_date, find_county, "Data Processing/output/NDVI_result.csv")
         )
 
-    for i in value_NDVI: # DEBUG, OUTPUT
-        if i == []:
-            continue
-        for j in i:
-            print(j)
-        print()
+    value_NDVI = sum(value_NDVI, []) # Flatens the list
     
-    return render_template('data.html')
+    for i in value_NDVI: # DEBUG, OUTPUT
+        print(i)
+    
+    return createFile(value_NDVI)
 
 @app.route('/models')
 def models():
