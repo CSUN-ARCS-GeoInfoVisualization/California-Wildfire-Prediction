@@ -39,15 +39,69 @@
 
       <form>
         <label for="start_date">Start Date:</label>
-        <input type="date", id="start_date", name="start_date">
+        <input type="date", id="start_date", name="start_date" required><br />
         <label for="end_date">End Date (Optional):</label>
         <input type="date", id="end_date", name="end_date"><br /><br />
-	<label for="county">County:</label>
-	<select id="county" name="county" multiple>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
+	<label for="county">County (Ctrl+Click to select multiple countys):</label>
+	<select id="county" name="county" size="10" multiple required>
+          <option value="1">Alameda</option>
+          <option value="3">Alpine</option>
+          <option value="5">Amador</option>
+          <option value="7">Butte</option>
+          <option value="9">Calaveras</option>
+          <option value="11">Colusa</option>
+          <option value="13">Contra Costa</option>
+          <option value="15">Del Norte</option>
+          <option value="17">El Dorado</option>
+          <option value="19">Fersno</option>
+          <option value="21">Glenn</option>
+          <option value="23">Humboldt</option>
+          <option value="25">Imperial</option>
+          <option value="27">Inyo</option>
+          <option value="29">Kern</option>
+          <option value="31">Kings</option>
+          <option value="33">Lake</option>
+          <option value="35">Lassen</option>
+          <option value="37">Los Angeles</option>
+          <option value="39">Madera</option>
+          <option value="41">Marin</option>
+          <option value="43">Mariposa</option>
+          <option value="45">Mendocino</option>
+          <option value="47">Merced</option>
+          <option value="49">Modoc</option>
+          <option value="51">Mono</option>
+          <option value="53">Monterey</option>
+          <option value="55">Napa</option>
+          <option value="57">Nevada</option>
+          <option value="59">Orange</option>
+          <option value="61">Placer</option>
+          <option value="63">Plumas</option>
+          <option value="65">Riverside</option>
+          <option value="67">Sacramento</option>
+          <option value="69">San Benito</option>
+          <option value="71">San Bernardino</option>
+          <option value="73">San Diego</option>
+          <option value="75">San Francisco</option>
+          <option value="77">San Joaquin</option>
+          <option value="79">San Luis Obispo</option>
+          <option value="81">San Mateo</option>
+          <option value="83">Santa Barbara</option>
+          <option value="85">Santa Clara</option>
+          <option value="87">Santa Cruz</option>
+          <option value="89">Shasta</option>
+          <option value="91">Sierra</option>
+          <option value="93">Siskiyou</option>
+          <option value="95">Solano</option>
+          <option value="97">Sonama</option>
+          <option value="99">Stanislaus</option>
+          <option value="101">Sutter</option>
+          <option value="103">Tehama</option>
+          <option value="105">Trinity</option>
+          <option value="107">Tulare</option>
+          <option value="109">Tuolume</option>
+          <option value="111">Ventura</option>
+          <option value="113">Yolo</option>
+          <option value="115">Yuba</option>
         </select><br /><br />
         <input type="submit" value="Download Dataset">
       </form><br /><br />

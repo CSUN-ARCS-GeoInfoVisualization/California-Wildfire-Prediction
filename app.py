@@ -1,12 +1,67 @@
-from flask import Flask, render_template, url_for, request, send_file, flash
+from flask import Flask, render_template, url_for, request, send_file
 from io import BytesIO
 from datetime import date
 
 # LIST OF STRINGS FILLED WITH CALIFORNA COUNTY NAMES
 # Format: <BLANK>,<COUNTY NAME>,...
-# TODO: Fill in the rest of the CountyList
 CountyList = ["","Alameda",
-              "","Alpine"
+              "","Alpine",
+              "","Amador",
+              "","Butte",
+              "","Calaveras",
+              "","Colusa",
+              "","Contra Costa",
+              "","Del Norte",
+              "","El Dorado",
+              "","Fersno",
+              "","Glenn",
+              "","Humboldt",
+              "","Imperial",
+              "","Inyo",
+              "","Kern",
+              "","Kings",
+              "","Lake",
+              "","Lassen",
+              "","Los Angeles",
+              "","Madera",
+              "","Marin",
+              "","Mariposa",
+              "","Mendocino",
+              "","Merced",
+              "","Modoc",
+              "","Mono",
+              "","Monterey",
+              "","Napa",
+              "","Nevada",
+              "","Orange",
+              "","Placer",
+              "","Plumas",
+              "","Riverside",
+              "","Sacramento",
+              "","San Benito",
+              "","San Bernardino",
+              "","San Diego",
+              "","San Francisco",
+              "","San Joaquin",
+              "","San Luis Obispo",
+              "","San Mateo",
+              "","Santa Barbara",
+              "","Santa Clara",
+              "","Santa Cruz",
+              "","Shasta",
+              "","Sierra",
+              "","Siskiyou",
+              "","Solano",
+              "","Sonama",
+              "","Stanislaus",
+              "","Sutter",
+              "","Tehama",
+              "","Trinity",
+              "","Tulare",
+              "","Tuolume",
+              "","Ventura",
+              "","Yolo",
+              "","Yuba"
               ]
 
 ## Generates the file to download ##
@@ -21,6 +76,9 @@ def findValue(start_date, end_date, county, filePath):
     line = file.readline()
     line = file.readline() # Skip Header
     matches = []
+
+    if (end_date == ""): # Only Start Date
+        end_date = start_date
 
     while (line != ''):
         line_check = [str(x) for x in line.split(",")]
@@ -83,9 +141,7 @@ def data():
     print(ed)       # DEBUG
     print(county)   # DEBUG
 
-    # REFACTOR 'county' to allow multiple inputs
     if (len(county) == 0 or sd == ""): # NO DATA ENTERED
-        print("No Data Entered")
         return render_template('data.html')
     
     try:
@@ -98,19 +154,10 @@ def data():
     print(start_date)     # DEBUG date : <year>-<month>-<day>
     print(end_date)
     
-    if (start_date == ""): ## ERROR - NO START DATE SELECTED
-        print("ENTER START DATE!")
-        return render_template('data.html')
-
-    if (end_date != "" and start_date > end_date): ## ERROR - INVALID END DATE
-        print("END DATE IS LARGER THAN START DATE")
-        return render_template('data.html')
-    
     value_NDVI = []
     value_NDVI.append(["<County>  |  <Date>  |  <NDVI>", ""])
-    
+        
     for i in county:
-
         find_county = formatCounty(i)
         print(find_county)                  # DEBUG
 
