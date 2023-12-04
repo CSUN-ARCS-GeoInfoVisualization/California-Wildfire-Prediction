@@ -33,11 +33,16 @@
 
       <h1>Data Sets</h1>
 
-<!-- TODO: Add the counties from the csv file -->
-<!-- TODO: Figure out how to make the submit button do something -->
 <!-- TODO: Customize the design of the elements to make it fit in better -->
 
       <form>
+	{% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <p><b> {{ message }} </b></p><br />
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
         <label for="start_date">Start Date:</label>
         <input type="date", id="start_date", name="start_date" required><br />
         <label for="end_date">End Date (Optional):</label>

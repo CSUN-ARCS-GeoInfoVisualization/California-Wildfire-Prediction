@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, send_file
+from flask import Flask, render_template, redirect, url_for, request, send_file, flash
 from io import BytesIO
 from datetime import date
 
@@ -119,6 +119,7 @@ def toISO(date):
     return y + "-" + m + "-" + d
 
 app = Flask(__name__)
+app.secret_key = b'z19D]p3Q4]rjhx[qcBHSf-Rx@K@9W*' # Needed for flash()
 
 @app.route('/')
 def index():
@@ -149,7 +150,13 @@ def data():
         end_date = date.fromisoformat(ed) if (not ed == "") else ""
     except: ## INVALID DATE ENTRY
         print("Invalid date entry!")
-        return render_template('data.html')    
+        flash("ERROR: Invalid date entry!")
+        return redirect(url_for('data'))
+
+    if (start_date > end_date):
+        print("End date is larger than start date")
+        flash("ERROR: End date is larger than start date")
+        return redirect(url_for('data'))
 
     print(start_date)     # DEBUG date : <year>-<month>-<day>
     print(end_date)
