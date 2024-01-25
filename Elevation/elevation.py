@@ -3,6 +3,7 @@ import pandas as pd
 import rasterio
 from rasterio.windows import Window
 import numpy as np
+import time
 
 
 def get_average_elevation(srtm_file, quality_file, longitude, latitude, pixel_size=30):
@@ -19,14 +20,10 @@ def get_average_elevation(srtm_file, quality_file, longitude, latitude, pixel_si
     :return: Average elevation in meters, considering only reliable data.
     """
     with rasterio.open(srtm_file) as src, rasterio.open(quality_file) as quality_src:
-        # Convert geographical coordinates to raster coordinates
         row, col = src.index(longitude, latitude)
-
-        # Calculate the window size
-        # Updated to use fixed width and height of 345x463
         window_width = 345
-        pixels_per_side_width = int(window_width / pixel_size)
         window_height = 463
+        pixels_per_side_width = int(window_width / pixel_size)
         pixels_per_side_height = int(window_height / pixel_size)
         window = Window(
             col - pixels_per_side_width // 2,
@@ -34,34 +31,29 @@ def get_average_elevation(srtm_file, quality_file, longitude, latitude, pixel_si
             pixels_per_side_width,
             pixels_per_side_height,
         )
-
-        # Read the data in the window
         elevation_data = src.read(1, window=window)
         quality_data = quality_src.read(1, window=window)
-
-        # Filter out unreliable elevation data
         reliable_elevation_data = elevation_data[
             (quality_data != 1) & (quality_data != 5)
         ]
 
-        # Calculate the average elevation, ignoring missing data
-        avg_elevation = np.nanmean(reliable_elevation_data)
+        if reliable_elevation_data.size == 0:
+            return np.nan
+        else:
+            return np.nanmean(reliable_elevation_data)
 
-        return avg_elevation
 
+# Measure the start time
+start_time = time.time()
 
 # Get the current directory
 current_dir = os.getcwd()
 
-# Define the file paths relative to the current directory
+# Define file paths relative to the current directory
 quality_file_path = os.path.join(
     current_dir, "data", "SRTMGL1_NUMNC.003_SRTMGL1_NUM_doy2000042_aid0001.tif"
 )
-csv_file_path = os.path.join(current_dir, "data", "2013data.csv")
-
-# Extract the name of the CSV file without extension
-csv_file_name = os.path.splitext(os.path.basename(csv_file_path))[0]
-
+csv_file_path = os.path.join(current_dir, "data", "data_2013-2-21.csv")
 srtm_file_path = os.path.join(
     current_dir, "data", "SRTMGL1_NC.003_SRTMGL1_DEM_doy2000042_aid0001.tif"
 )
@@ -69,18 +61,19 @@ srtm_file_path = os.path.join(
 # Load the CSV file
 data = pd.read_csv(csv_file_path)
 
-# Iterate over the DataFrame and calculate elevation for each row
-elevations = []
-for index, row in data.iterrows():
-    longitude = row["Longitude"]
-    latitude = row["Latitude"]
-    elevation = get_average_elevation(
-        srtm_file_path, quality_file_path, longitude, latitude
-    )
-    elevations.append(elevation)
+# Extract unique coordinates
+unique_coordinates = data[["Longitude", "Latitude"]].drop_duplicates()
 
-# Add the elevation data to the DataFrame
-data["Elevation"] = elevations
+# Calculate elevation for each unique coordinate
+unique_coordinates["Elevation"] = unique_coordinates.apply(
+    lambda row: get_average_elevation(
+        srtm_file_path, quality_file_path, row["Longitude"], row["Latitude"]
+    ),
+    axis=1,
+)
+
+# Merge calculated elevation with the original DataFrame
+data = pd.merge(data, unique_coordinates, on=["Longitude", "Latitude"], how="left")
 
 # Define the output folder path
 output_folder_path = os.path.join(current_dir, "output")
@@ -89,10 +82,16 @@ output_folder_path = os.path.join(current_dir, "output")
 if not os.path.exists(output_folder_path):
     os.makedirs(output_folder_path)
 
-# Save the updated DataFrame to a new CSV file with the CSV file name included
+# Save the updated DataFrame to a new CSV file
 output_csv_file_path = os.path.join(
-    output_folder_path, f"{csv_file_name}_Elevation.csv"
+    output_folder_path,
+    f"{os.path.splitext(os.path.basename(csv_file_path))[0]}_Elevation.csv",
 )
 data.to_csv(output_csv_file_path, index=False)
 
+# Measure the end time
+end_time = time.time()
+# Calculate and print the running time
+running_time = end_time - start_time
 print(f"Updated CSV file saved to {output_csv_file_path}")
+print(f"Running time: {running_time} seconds")
