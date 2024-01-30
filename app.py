@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request, send_file, flash
+from pymongo.mongo_client import MongoClient
 from io import BytesIO
 from datetime import date
 
@@ -121,6 +122,10 @@ def toISO(date):
 app = Flask(__name__)
 app.secret_key = b'z19D]p3Q4]rjhx[qcBHSf-Rx@K@9W*' # Needed for flash()
 
+client = MongoClient('localhost', 27017)
+db = client["cwp_prod"]
+coll = db.main
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -183,6 +188,14 @@ def data():
 def models():
     return render_template('models.html')
 
+@app.route('/dbtest')
+def db_test():
+
+    year_param = request.args.get('year')
+
+    # 1
+    _1 = coll.find({"year": int(year_param)}, {"_id": 0})
+    return(list(_1))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
