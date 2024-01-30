@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" />
+    <script src="{{url_for('static', filename='script.js')}}" defer></script>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <a href="{{url_for('home')}}" class="logo-img-link">
+          <img src="{{url_for('static', filename='CSUN-senior-design-project 1.png')}}" alt="Logo" />
+        </a>
+      </div>
+      <div class="logo-mobile">
+        <a href="{{url_for('home')}}" class="logo-img-mlink">
+          <img src="{{url_for('static', filename='logo 1.png')}}" alt="Logo" />
+        </a>
+      </div>
+      <button class="hamburger-menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        <li><a href="{{url_for('data')}}">Data Sources</a></li>
+        <li><a href="{{url_for('models')}}">Prediction Models</a></li>
+        <li><a href="{{url_for('about')}}">About Us</a></li>
+      </ul>
+    </nav>
+
+    <main>
+
+      <h1>Data Sets</h1>
+
+<!-- TODO: Customize the design of the elements to make it fit in better -->
+
+      <form>
+	{% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <p><b> {{ message }} </b></p><br />
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <label for="start_date">Start Date:</label>
+        <input type="date", id="start_date", name="start_date" required><br />
+        <label for="end_date">End Date (Optional):</label>
+        <input type="date", id="end_date", name="end_date"><br /><br />
+	<label for="county">County (Ctrl+Click to select multiple countys):</label>
+	<select id="county" name="county" size="10" multiple required>
+          <option value="1">Alameda</option>
+          <option value="3">Alpine</option>
+          <option value="5">Amador</option>
+          <option value="7">Butte</option>
+          <option value="9">Calaveras</option>
+          <option value="11">Colusa</option>
+          <option value="13">Contra Costa</option>
+          <option value="15">Del Norte</option>
+          <option value="17">El Dorado</option>
+          <option value="19">Fersno</option>
+          <option value="21">Glenn</option>
+          <option value="23">Humboldt</option>
+          <option value="25">Imperial</option>
+          <option value="27">Inyo</option>
+          <option value="29">Kern</option>
+          <option value="31">Kings</option>
+          <option value="33">Lake</option>
+          <option value="35">Lassen</option>
+          <option value="37">Los Angeles</option>
+          <option value="39">Madera</option>
+          <option value="41">Marin</option>
+          <option value="43">Mariposa</option>
+          <option value="45">Mendocino</option>
+          <option value="47">Merced</option>
+          <option value="49">Modoc</option>
+          <option value="51">Mono</option>
+          <option value="53">Monterey</option>
+          <option value="55">Napa</option>
+          <option value="57">Nevada</option>
+          <option value="59">Orange</option>
+          <option value="61">Placer</option>
+          <option value="63">Plumas</option>
+          <option value="65">Riverside</option>
+          <option value="67">Sacramento</option>
+          <option value="69">San Benito</option>
+          <option value="71">San Bernardino</option>
+          <option value="73">San Diego</option>
+          <option value="75">San Francisco</option>
+          <option value="77">San Joaquin</option>
+          <option value="79">San Luis Obispo</option>
+          <option value="81">San Mateo</option>
+          <option value="83">Santa Barbara</option>
+          <option value="85">Santa Clara</option>
+          <option value="87">Santa Cruz</option>
+          <option value="89">Shasta</option>
+          <option value="91">Sierra</option>
+          <option value="93">Siskiyou</option>
+          <option value="95">Solano</option>
+          <option value="97">Sonama</option>
+          <option value="99">Stanislaus</option>
+          <option value="101">Sutter</option>
+          <option value="103">Tehama</option>
+          <option value="105">Trinity</option>
+          <option value="107">Tulare</option>
+          <option value="109">Tuolume</option>
+          <option value="111">Ventura</option>
+          <option value="113">Yolo</option>
+          <option value="115">Yuba</option>
+        </select><br /><br />
+        <input type="submit" value="Download Dataset">
+      </form><br /><br />
+
+      <h1>Satellite Data</h1>
+        <div id="intro">
+          <b>Historical Analysis:</b><br />
+By analyzing satellite data archives, our system can identify patterns and trends related to past wildfires. Understanding factors like initiation points, spread trajectories, and affected terrains can refine prediction models, making them more precise.
+        </div>
+        <div id="intro">
+          <b>Vegetation Health Assessment:</b><br />
+Satellites can provide data on vegetation health through indices like the Normalized Difference Vegetation Index (NDVI). Areas with dry or dead vegetation are more susceptible to wildfires. By continuously monitoring vegetation health, we can highlight high-risk areas.
+        </div>
+        <div id="intro">
+          <b>Topographical Insights:</b><br />
+Detailed satellite imagery allows our system to factor in terrain and topography, both of which influence wildfire spread. For instance, valleys and slopes can channel or accelerate fires in specific directions.
+      </div>
+      <h1>Weather Data</h1>
+      <div id="intro">Weather plays an indispensable role in the initiation, spread, and behavior of wildfires. By integrating real-time and historical weather data into our wildfire predictor machine learning system, we can achieve more nuanced and accurate predictions. Here's how we harness the power of weather data:
+      </div>
+      <div id = "intro">
+        <b>Temperature Monitoring:</b><br />
+Elevated temperatures can exacerbate drought conditions and dry out vegetation, making areas more prone to wildfires. Monitoring temperature trends allows us to anticipate periods of heightened wildfire risk.
+      </div>
+      <div id = "intro">
+        <b>Humidity Insights:</b><br />
+Low humidity levels reduce the moisture content in vegetation and soil, creating tinderbox conditions. Continuous humidity tracking aids in pinpointing areas where fires are more likely to ignite and spread rapidly.
+      </div>
+      <div id = "intro">
+        <b>Wind Patterns:</b><br />
+Wind direction and speed are critical factors influencing the spread of wildfires. By analyzing wind data, our system can predict the potential path and velocity of fire expansion, allowing for early warnings and more effective containment strategies.
+      </div><br /><br />
+
+    </main>
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-content">© 2023 Wildfire Prediction</div>
+        
+      </div>
+
+
+      
+    </footer>
+  </body>
+</html>
