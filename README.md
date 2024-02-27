@@ -20,10 +20,10 @@
 The California Wildfire Prediction project is aimed at mitigating the increasing wildfire threat in California by leveraging data-driven approaches. This repository contains the code and resources for building predictive models, processing data, and visualizing results. The project employs machine learning techniques, including deep learning, to forecast wildfire risks based on historical data.
 
 ## Built With
-- Flask
-- MySQL
-- Blender
-- Jupyter Notebooks
+- ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
+- ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
+- ![Blender](https://img.shields.io/badge/blender-%23F5792A.svg?style=for-the-badge&logo=blender&logoColor=white)
+- ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 ## Key Features
 
