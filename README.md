@@ -6,14 +6,11 @@
 ## Table of Contents
 
 - [Description](#description)
+- [Built With](#Built-With)
 - [Key Features](#key-features)
 - [Team Members](#team-members)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Data Sources](#data-sources)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Description
 
@@ -30,7 +27,7 @@ The California Wildfire Prediction project is aimed at mitigating the increasing
 - data collection from various sources.
 - Data preprocessing, including cleaning and feature engineering.
 - Machine learning models for wildfire risk prediction.
-- Interactive visualizations and user-friendly dashboards.
+- User-Friendly Interface: Easy-to-navigate website layout designed for researchers. (This repository (https://github.com/CSUN-ARCS-GeoInfoVisualization/California-Wildfire-Prediction-Web-Application) contains the source code and related files for a website dedicated to providing visualization tools and processed data for researchers. The website offers an intuitive interface for visualizing various datasets and allows users to download processed data for their research needs.)
 - Continuous model evaluation and improvement.
 
 ## Team Members
